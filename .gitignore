@@ -48,10 +48,10 @@ out/
 ## Eclipse
 ##############################
 .settings/
-bin/
+TennisGame/bin/
 tmp/
-.metadata
-.classpath
+.metadata/
+TennisGame/.classpath
 .project
 *.tmp
 *.bak

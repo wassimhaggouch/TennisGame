@@ -10,10 +10,23 @@ public class TennisGame {
 	// Players scores
 	private static int firstPlayerScore;
 	private static int secondPlayerScore;
+	
+	public int getFirstPlayerScore() {
+		return firstPlayerScore;
+	}
+	
+	public int getSecondPlayerScore() {
+		return secondPlayerScore;
+	}
 
 	public TennisGame(String firstPlayer, String secondPlayer) {
 		this.firstPlayer = firstPlayer;
 		this.secondPlayer = secondPlayer;
+		this.firstPlayerScore = 0;
+		this.secondPlayerScore = 0;
+	}
+	
+	public void resetScore() {
 		this.firstPlayerScore = 0;
 		this.secondPlayerScore = 0;
 	}
@@ -46,7 +59,7 @@ public class TennisGame {
 	 * If deuce: Advantage for 1st player
 	 * If 2nd player has advantage: deuce
 	 */
-	private void firstPlayerScores() {
+	public void firstPlayerScores() {
     	if (secondPlayerScore == 4) {
     		secondPlayerScore--;
     	} else {
@@ -59,7 +72,7 @@ public class TennisGame {
 	 * If deuce: Advantage for 2nd player
 	 * If 1st player has advantage: deuce
 	 */
-	private void secondPlayerScores() {
+	public void secondPlayerScores() {
     	if (firstPlayerScore == 4) {
     		firstPlayerScore--;
     	} else {
@@ -71,7 +84,7 @@ public class TennisGame {
 	 * @return true if the 1st player won the game
 	 * else return false
 	 */
-	private boolean hasFirstPlayerWon() {
+	public boolean hasFirstPlayerWon() {
 		if (firstPlayerScore == 4 && secondPlayerScore < 3) {
 			return true;
 		} else if (firstPlayerScore == 5 &&  secondPlayerScore ==3) {
@@ -85,7 +98,7 @@ public class TennisGame {
 	 * @return true if the 2nd player won the game
 	 * else return false
 	 */
-	private boolean hasSecondPlayerWon() {
+	public boolean hasSecondPlayerWon() {
 		if (secondPlayerScore == 4 && firstPlayerScore < 3) {
 			return true;
 		} else if (secondPlayerScore == 5 &&  firstPlayerScore ==3) {
@@ -98,19 +111,19 @@ public class TennisGame {
 	/**
 	 * @return true if the game is finished
 	 */
-	private boolean isGameFinished() {
+	public boolean isGameFinished() {
 		return hasFirstPlayerWon() || hasSecondPlayerWon();
 	}
 	
-	private boolean isDeuce() {
+	public boolean isDeuce() {
 		return firstPlayerScore == 3 && secondPlayerScore == firstPlayerScore;
 	}
 	
-	private boolean hasFirstPlayerAdvantage() {
+	public boolean hasFirstPlayerAdvantage() {
 		return firstPlayerScore == 4 && secondPlayerScore == 3;
 	}
 	
-	private boolean hasSecondPlayerAdvantage() {
+	public boolean hasSecondPlayerAdvantage() {
 		return secondPlayerScore == 4 && firstPlayerScore == 3;
 	}
 	
