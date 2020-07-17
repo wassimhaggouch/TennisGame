@@ -1,0 +1,191 @@
+package com.codingDojo.tennisGame;
+
+import java.util.Scanner;
+
+import static com.codingDojo.tennisGame.tennisGame.SCORE_ENUM.getScore;
+
+public class tennisGame {
+	private static String firstPlayer;
+	private static String secondPlayer;
+	private static int firstPlayerScore = 0;
+	private static int secondPlayerScore = 0;
+
+	public tennisGame(String firstPlayer, String secondPlayer) {
+		this.firstPlayer = firstPlayer;
+		this.secondPlayer = secondPlayer;
+		this.firstPlayerScore = 0;
+		this.secondPlayerScore= 0;
+	}
+	
+	public enum SCORE_ENUM {
+        SCORE_LOVE(0, "Love"),
+        SCORE_FIFTEEN(1, "Fifteen"),
+        SCORE_THIRTY(2, "Thirty"),
+        SCORE_FOURTY(3, "Fourty");
+
+        private int code;
+        private String label;
+
+        SCORE_ENUM(int code, String label) {
+            this.code = code;
+            this.label = label;
+        }
+
+        public static String getScore(int id) {
+            for (SCORE_ENUM e : values()) {
+                if (e.code == id) return e.label;
+            }
+            return null;
+        }
+    }
+	
+	private void firstPlayerScores() {
+		firstPlayerScore++;
+	}
+	
+	private void secondPlayerScores() {
+		secondPlayerScore++;
+	}
+	
+	private boolean isDeuce() {
+		return firstPlayerScore == 3 && secondPlayerScore == firstPlayerScore;
+	}
+	
+	private boolean hasFirstPlayerAdvantage() {
+		return firstPlayerScore == 4 && secondPlayerScore == 3;
+	}
+	
+	private boolean hasSecindPlayerAdvantage() {
+		return secondPlayerScore == 4 && firstPlayerScore == 3;
+	}
+	
+	private static boolean hasFirstPlayerWon() {
+		if (firstPlayerScore == 4 && secondPlayerScore < 3) {
+			return true;
+		} else if (firstPlayerScore == 5 &&  secondPlayerScore ==3) {
+			return true;
+		} else {
+		return false;
+		}
+	}
+	
+	private static boolean hasSecondPlayerWon() {
+		if (secondPlayerScore == 4 && firstPlayerScore < 3) {
+			return true;
+		} else if (secondPlayerScore == 5 &&  firstPlayerScore ==3) {
+			return true;
+		} else {
+		return false;
+		}
+	}
+	
+	private static boolean isGameFinished() {
+		return hasFirstPlayerWon() || hasSecondPlayerWon();
+	}
+	
+	  public static void main(String[] args) {
+		  
+		  
+			  	  
+		// Init the game and read player names 
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Please insert first player's name:"); 
+		firstPlayer = sc.nextLine();
+		System.out.println("Please insert second player's name:");
+		secondPlayer = sc.nextLine();
+			  
+		int selection;
+		Scanner input = new Scanner(System.in);		
+		/***************************************************/
+		while (!isGameFinished()) {
+			System.out.println("Who scored the point? (Enter 1 or 2)");
+		    System.out.println("-------------------------");
+		    System.out.println(String.format("1 - %s scored a point", firstPlayer));
+		    System.out.println(String.format("2 - %s scored a number", secondPlayer));
+		      
+		    switch (input.nextInt()) {
+		    case 1:
+		    	firstPlayerScore++;
+		        break;
+		    case 2:
+		    	secondPlayerScore++;
+		        break;
+		    default:
+		    	System.out.println("Unexpected choice, please retry.");
+		    }
+		}      
+  }
+	  
+	 /**
+		 * Game is finished if One player wins or is in advantage or the game is draw
+		 *
+		 * @return boolean
+		 */
+	/*
+	 * private static boolean isGameFinished() {
+	 * 
+	 * // Game is finished if (isGameWon()) { System.out.println((String.
+	 * format("Final Score -> ***** %s wins the game! *****\r\n",
+	 * getWinningPlayerName()))); return true; }
+	 * 
+	 * if (isGameAdvantage()) { System.out.println((String.
+	 * format("Final Score -> ***** Advantage for %s! *****\r\n",
+	 * getWinningPlayerName()))); return true; }
+	 * 
+	 * if (isGameDeuce()) {
+	 * System.out.println("Final Score -> ***** Deuce! *****\r\n"); return true; }
+	 * 
+	 * // Game is still in progress... if (firstPlayerScore == secondPlayerScore) {
+	 * System.out.println((String.format("Live Score -> ***** %s All *****\r\n",
+	 * translateScore(firstPlayerScore)))); } else { System.out.println(String.
+	 * format("Live Score -> \"%s\": %s ***** \"%s\": %s\r\n", firstPlayer,
+	 * translateScore(firstPlayerScore), secondPlayer,
+	 * translateScore(secondPlayerScore))); } return false; }
+	 * 
+	 * private static boolean isGameWon() { return (hasOnePlayerScoredMaxPoints())
+	 * && getScoresAbsDifference() >= 2; }
+	 * 
+	 * private static boolean isGameAdvantage() { return
+	 * hasOnePlayerScoredMaxPoints() && (getScoresAbsDifference()) == 1; }
+	 * 
+	 * private static boolean isGameDeuce() { return firstPlayerScore >= 3 &&
+	 * secondPlayerScore == firstPlayerScore; }
+	 * 
+	 *//**
+		 * Returns true if at least one of the two players scored 4 points
+		 *
+		 * @return boolean
+		 */
+	/*
+	 * private static boolean hasOnePlayerScoredMaxPoints() { return
+	 * secondPlayerScore >= 4 || firstPlayerScore >= 4; }
+	 * 
+	 *//**
+		 * returns the Absolute value of the difference between the scores of the two
+		 * players
+		 *
+		 * @return int
+		 */
+	/*
+	 * private static int getScoresAbsDifference() { return
+	 * Math.abs(firstPlayerScore - secondPlayerScore); }
+	 * 
+	 *//**
+		 * Returns the name of the player that scored the most
+		 *
+		 * @return String
+		 *//*
+			 * private static String getWinningPlayerName() { if (firstPlayerScore >
+			 * secondPlayerScore) return firstPlayer; return secondPlayer; }
+			 * 
+			 * public enum SCORE_ENUM { SCORE_LOVE(0, "Love"), SCORE_FIFTEEN(1, "Fifteen"),
+			 * SCORE_THIRTY(2, "Thirty"), SCORE_FOURTY(3, "Fourty");
+			 * 
+			 * private int code; private String label;
+			 * 
+			 * SCORE_ENUM(int code, String label) { this.code = code; this.label = label; }
+			 * 
+			 * public static String translateScore(int id) { for (SCORE_ENUM e : values()) {
+			 * if (e.code == id) return e.label; } return null; } }
+			 */
+}
